@@ -2,10 +2,29 @@ import React from 'react';
 import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/Home';
+import signUp from '../screens/signUp';
+import cart from '../screens/cart';
+import checkOut from '../screens/checkOut';
+import details from '../screens/details';
+import getStarted from '../screens/getStarted';
+import logIn from '../screens/logIn';
+import myProfile from '../screens/myProfile';
+import orderConfirmationRider from '../screens/orderConfirmationRider';
+import orderHistory from '../screens/orderHistory';
+
 import {StatusBar} from 'react-native';
 
 export type RootParamList = {
+  getStarted: undefined;
   Home: undefined;
+  signUp: undefined;
+  logIn: undefined;
+  myProfile: undefined;
+  details: undefined;
+  cart: undefined;
+  checkOut: undefined;
+  orderConfirmationRider: undefined;
+  orderHistory: undefined;
 };
 
 const Root = createStackNavigator<RootParamList>();
@@ -22,6 +41,7 @@ export default () => {
     <>
       <StatusBar animated={true} backgroundColor={'black'} />
       <Root.Navigator
+        initialRouteName="getStarted"
         screenOptions={{
           headerTitleAlign: 'center',
           headerTitleStyle: {
@@ -31,6 +51,59 @@ export default () => {
         <Root.Screen
           name="Home"
           component={Home}
+          options={{headerShown: false}}
+        />
+        <Root.Screen
+          name="signUp"
+          component={signUp}
+          options={{headerShown: false}}
+        />
+
+        <Root.Screen
+          name="logIn"
+          component={logIn}
+          options={{headerShown: false}}
+        />
+
+        <Root.Screen
+          name="getStarted"
+          component={getStarted}
+          options={{headerShown: false}}
+        />
+
+        <Root.Screen
+          name="myProfile"
+          component={myProfile}
+          options={{headerShown: false}}
+        />
+
+        <Root.Screen
+          name="details"
+          component={details}
+          options={{headerShown: false}}
+        />
+
+        <Root.Screen
+          name="cart"
+          component={cart}
+          options={{headerShown: false}}
+        />
+
+        <Root.Screen
+          name="checkOut"
+          component={checkOut}
+          options={{headerShown: false}}
+        />
+
+        <Root.Screen
+          name="orderConfirmationRider"
+          component={orderConfirmationRider}
+          options={{headerShown: false}}
+        />
+
+        <Root.Screen
+          name="orderHistory"
+          component={orderHistory}
           options={{headerShown: false}}
         />
       </Root.Navigator>
