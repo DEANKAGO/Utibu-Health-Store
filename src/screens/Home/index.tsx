@@ -1,7 +1,6 @@
 // import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {View, StyleSheet, SafeAreaView, Image} from 'react-native';
 
 export default function Home() {
   //   const navigation = useNavigation();
@@ -9,7 +8,8 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.layout}>
       <View>
-        <Text>This is home</Text>
+        <Image source={require('../../images/🦆 icon _Bars_.svg')} />
+        <Image source={require('../../images/iconBars.svg')} />
       </View>
     </SafeAreaView>
   );
@@ -20,5 +20,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     paddingHorizontal: 30,
+    alignItems: 'center',
   },
 });

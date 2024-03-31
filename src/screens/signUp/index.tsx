@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     width: 25,
   },
   headerText: {
-    height: 30,
     fontSize: 24,
     fontWeight: '600',
   },
