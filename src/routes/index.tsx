@@ -2,15 +2,15 @@ import React from 'react';
 import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/Home';
-import signUp from '../screens/signUp';
-import cart from '../screens/cart';
-import checkOut from '../screens/checkOut';
-import details from '../screens/details';
-import getStarted from '../screens/getStarted';
-import logIn from '../screens/logIn';
-import myProfile from '../screens/myProfile';
-import orderConfirmationRider from '../screens/orderConfirmationRider';
-import orderHistory from '../screens/orderHistory';
+import signUp from '../screens/SignUp';
+import cart from '../screens/Cart';
+import checkOut from '../screens/CheckOut';
+import details from '../screens/Details';
+import getStarted from '../screens/GetStarted';
+import logIn from '../screens/LogIn';
+import myProfile from '../screens/MyProfile';
+import orderConfirmationRider from '../screens/OrderConfirmationRider';
+import orderHistory from '../screens/OrderHistory';
 
 import {StatusBar} from 'react-native';
 

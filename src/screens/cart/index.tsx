@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
 
-export default function cart() {
+export default function Cart() {
   //   const navigation = useNavigation();
   //   navigation.navigate('Home')
   return (

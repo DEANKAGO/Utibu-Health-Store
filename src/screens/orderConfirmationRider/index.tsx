@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
 
-export default function orderConfirmation() {
+export default function OrderConfirmation() {
   //   const navigation = useNavigation();
   //   navigation.navigate('Home')
   return (
