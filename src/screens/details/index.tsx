@@ -9,10 +9,12 @@ import {
 } from 'react-native';
 import Plus from '../../images/Plus.svg';
 import Subtract from '../../images/Subtract.svg';
+import {useNavigation} from '@react-navigation/native';
+import {RootNavigation} from '../../routes';
 
 export default function Details() {
-  //   const navigation = useNavigation();
-  //   navigation.navigate('Home')
+  const navigation = useNavigation<RootNavigation>();
+
   return (
     <SafeAreaView style={styles.layout}>
       <View style={styles.details}>
@@ -66,7 +68,9 @@ export default function Details() {
         </View>
       </View>
       <View style={styles.detailsAddContainer}>
-        <TouchableOpacity style={styles.detailsAdd}>
+        <TouchableOpacity
+          style={styles.detailsAdd}
+          onPress={() => navigation.navigate('cart')}>
           <Text style={styles.detailsText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
