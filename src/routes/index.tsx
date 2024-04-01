@@ -22,8 +22,12 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import MyProfile from '../screens/MyProfile';
-import OrderHistory from '../screens/OrderHistory';
 import {Text} from 'react-native-svg';
+import HomeIcon from '../../images/Home.svg';
+import Orders from '../../images/PurchaseOrder.svg';
+import User from '../../images/User.svg';
+import OrderHistory from '../screens/OrderHistory';
+
 // import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type TabParamList = {

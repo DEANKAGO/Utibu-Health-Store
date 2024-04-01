@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 import Bars from '../../images/iconBars.svg';
 import Notification from '../../images/iconBell.svg';
-import HomeIcon from '../../images/Home.svg';
-import Orders from '../../images/PurchaseOrder.svg';
-import User from '../../images/User.svg';
+import ProductAdd from '../../images//add1.svg';
+
+// import HomeIcon from '../../images/Home.svg';
+// import Orders from '../../images/PurchaseOrder.svg';
+// import User from '../../images/User.svg';
 
 export default function Home() {
   // const navigation = useNavigation();
@@ -30,25 +32,75 @@ export default function Home() {
         <TextInput style={styles.input} placeholder="Search for medicine" />
       </View>
       <View style={styles.categories}>
-        <Text>Categories</Text>
-        <View style={styles.slide} />
-      </View>
-      <View>
-        <View>
-          <Text>Featured products</Text>
-          <Text>See all</Text>
-        </View>
-        <View>
-          <View>
-            <Image source={require('../../images/Probiotic.png')} />
-          </View>
-          <View>
-            <View>
-              <Text>Probiotic</Text>
-              <Text>$50</Text>
+        <Text style={styles.categoriesHeader}>Categories</Text>
+        <View style={styles.slide}>
+          <View style={styles.slide1}>
+            <Image
+              style={styles.catImg}
+              source={require('../../images/Probiotic.png')}
+            />
+            <View style={styles.slideInfo}>
+              <View>
+                <Text style={styles.slideName}>Medicine</Text>
+              </View>
             </View>
+          </View>
+          <View style={styles.slide1}>
+            <Image
+              style={styles.catImg}
+              source={require('../../images/Probiotic.png')}
+            />
+            <View style={styles.slideInfo}>
+              <View>
+                <Text style={styles.slideName}>Medicine</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.slide1}>
+            <Image
+              style={styles.catImg}
+              source={require('../../images/Probiotic.png')}
+            />
+            <View style={styles.slideInfo}>
+              <View>
+                <Text style={styles.slideName}>Medicine</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View style={styles.products}>
+        <View style={styles.productsHeader}>
+          <Text style={styles.productsHeader1}>Featured products</Text>
+          <Text style={styles.productsHeader2}>See all</Text>
+        </View>
+        <View style={styles.productFlex}>
+          <View style={styles.product}>
             <View>
-              <Image />
+              <Image source={require('../../images/Probiotic.png')} />
+            </View>
+            <View style={styles.productInfo}>
+              <View>
+                <Text style={styles.productName}>Probiotic</Text>
+                <Text style={styles.price}>$50</Text>
+              </View>
+              <View style={styles.productAdd}>
+                <ProductAdd style={styles.productAddIcon} />
+              </View>
+            </View>
+          </View>
+          <View style={styles.product}>
+            <View>
+              <Image source={require('../../images/Probiotic.png')} />
+            </View>
+            <View style={styles.productInfo}>
+              <View>
+                <Text style={styles.productName}>Probiotic</Text>
+                <Text style={styles.price}>$50</Text>
+              </View>
+              <View style={styles.productAdd}>
+                <ProductAdd style={styles.productAddIcon} />
+              </View>
             </View>
           </View>
         </View>
@@ -82,35 +134,93 @@ const styles = StyleSheet.create({
   categories: {
     marginTop: 20,
   },
+  categoriesHeader: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 10,
+  },
   slide: {
     backgroundColor: '#E8F3F1',
     width: 360,
     height: 150,
-    marginTop: 10,
     borderRadius: 15,
-  },
-  nav: {
-    height: 70,
-    width: '100%',
-    backgroundColor: '#E8F3F1',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  bottom: {
-    justifyContent: 'space-evenly',
-    width: '100%',
-    height: 100,
     flexDirection: 'row',
   },
-  bottomIcons: {
+  slide1: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: '70%',
+    backgroundColor: '#FFE5E5',
+    borderRadius: 15,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  slideInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#ffffff',
+  },
+  slideName: {
+    fontSize: 12,
+    padding: 10,
+    backgroundColor: '#FFE5E5',
+  },
+  catImg: {
+    maxHeight: 50,
+    maxWidth: 50,
+  },
+  products: {
+    padding: 10,
+    marginTop: 5,
     alignItems: 'center',
   },
-  bottomText: {
-    fontSize: 12,
+  productsHeader: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  navIcons: {
-    height: 200,
-    width: 200,
+  productsHeader1: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  productsHeader2: {
+    fontSize: 16,
+    fontWeight: '300',
+  },
+  productFlex: {
+    flexDirection: 'row',
+  },
+  product: {
+    backgroundColor: '#E8F3F1',
+    width: 180,
+    height: 180,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    margin: 10,
+  },
+  productInfo: {
+    flexDirection: 'row',
+    width: 140,
+    justifyContent: 'space-between',
+  },
+  price: {
+    padding: 5,
+  },
+  productName: {
+    fontSize: 16,
+    padding: 5,
+  },
+  productAdd: {
+    padding: 5,
+    justifyContent: 'flex-end',
+  },
+  productAddIcon: {
+    // width: '100%',
+    // borderRadius: 50,
+    // height: '20%',
   },
 });
