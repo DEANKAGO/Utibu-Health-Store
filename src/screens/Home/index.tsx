@@ -7,17 +7,20 @@ import {
   TextInput,
   Text,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import Bars from '../../images/iconBars.svg';
 import Notification from '../../images/iconBell.svg';
 import ProductAdd from '../../images//add1.svg';
+import {useNavigation} from '@react-navigation/native';
+import {RootNavigation} from '../../routes';
 
 // import HomeIcon from '../../images/Home.svg';
 // import Orders from '../../images/PurchaseOrder.svg';
 // import User from '../../images/User.svg';
 
 export default function Home() {
-  // const navigation = useNavigation();
+  const navigation = useNavigation<RootNavigation>();
   return (
     <SafeAreaView style={styles.layout}>
       <View style={styles.barsHeader}>
@@ -75,7 +78,9 @@ export default function Home() {
           <Text style={styles.productsHeader2}>See all</Text>
         </View>
         <View style={styles.productFlex}>
-          <View style={styles.product}>
+          <TouchableOpacity
+            style={styles.product}
+            onPress={() => navigation.navigate('details')}>
             <View>
               <Image source={require('../../images/Probiotic.png')} />
             </View>
@@ -84,11 +89,13 @@ export default function Home() {
                 <Text style={styles.productName}>Probiotic</Text>
                 <Text style={styles.price}>$50</Text>
               </View>
-              <View style={styles.productAdd}>
+              <TouchableOpacity
+                style={styles.productAdd}
+                onPress={() => navigation.navigate('cart')}>
                 <ProductAdd style={styles.productAddIcon} />
-              </View>
+              </TouchableOpacity>
             </View>
-          </View>
+          </TouchableOpacity>
           <View style={styles.product}>
             <View>
               <Image source={require('../../images/Probiotic.png')} />

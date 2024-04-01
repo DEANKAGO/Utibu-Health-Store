@@ -33,12 +33,10 @@ export default function SignUp() {
         </View>
       </View>
       <View style={styles.signUp}>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            onPress={() => navigation.navigate('logIn')}
-            style={styles.buttonText}>
-            Sign Up
-          </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('logIn')}>
+          <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
         <Text>Already have an account? Log in</Text>
       </View>

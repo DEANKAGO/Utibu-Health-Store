@@ -33,12 +33,10 @@ export default function LogIn() {
       </View>
       <View style={styles.logIn}>
         <Text style={styles.forgotPassword}>Forgot Password</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text
-            onPress={() => navigation.navigate('Home')}
-            style={styles.buttonText}>
-            Log In
-          </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
