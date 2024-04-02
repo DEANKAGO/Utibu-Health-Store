@@ -109,7 +109,7 @@ export default function Cart() {
         <View style={styles.checkoutButton}>
           <TouchableOpacity
             style={styles.checkoutButton1}
-            onPress={() => navigation.navigate('CheckOut')}>
+            onPress={() => navigation.navigate('checkOut')}>
             <Text style={styles.checkoutText}>CheckOut</Text>
           </TouchableOpacity>
         </View>
