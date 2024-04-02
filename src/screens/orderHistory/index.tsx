@@ -331,6 +331,7 @@ const styles = StyleSheet.create({
   },
   cartHeader: {
     marginTop: 10,
+    marginBottom: 5,
     fontSize: 18,
     fontWeight: '600',
   },
