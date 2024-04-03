@@ -41,11 +41,29 @@ export function PharmacyCart({children}: PharmacyCartProps) {
     });
   }
 
+  function decreaseProductCart(id: number) {
+    setCartProducts(availableProducts => {
+      if (
+        availableProducts.find(product => product.id === id)?.quantity === 1
+      ) {
+        return availableProducts.filter(product => product.id == id);
+      } else {
+        return availableProducts.map(product => {
+          if (product.id === id) {
+            return {...product, quantity: product.quantity - 1};
+          } else {
+            return product;
+          }
+        });
+      }
+    });
+  }
+
   return (
     <PharmacyContext.Provider
       value={{
         increaseProductCart,
-        // decreaseProductCart,
+        decreaseProductCart,
         // removeProduct,
         // productQuantity,
       }}>
