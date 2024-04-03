@@ -6,9 +6,9 @@ type PharmacyCartProps = {
 
 type PharmacyContext = {
   increaseProductCart: (id: number) => void;
-  //   decreaseProductCart: (id: number) => void;
-  //   removeProduct: (id: number) => void;
-  //   productQuantity: (id: number) => number;
+  decreaseProductCart: (id: number) => void;
+  removeProduct: (id: number) => void;
+  productQuantity: (id: number) => number;
 };
 
 type CartProduct = {
@@ -65,13 +65,17 @@ export function PharmacyCart({children}: PharmacyCartProps) {
     });
   }
 
+  function productQuantity(id: number) {
+    return cartProducts.find(product => product.id == id)?.quantity || 0
+  }
+
   return (
     <PharmacyContext.Provider
       value={{
         increaseProductCart,
         decreaseProductCart,
         removeProduct,
-        // productQuantity,
+        productQuantity,
       }}>
       {children}
     </PharmacyContext.Provider>
