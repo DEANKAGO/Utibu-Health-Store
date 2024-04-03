@@ -59,12 +59,18 @@ export function PharmacyCart({children}: PharmacyCartProps) {
     });
   }
 
+  function removeProduct(id: number) {
+    setCartProducts(availableProducts => {
+      return availableProducts.filter(product => product.id !== id);
+    });
+  }
+
   return (
     <PharmacyContext.Provider
       value={{
         increaseProductCart,
         decreaseProductCart,
-        // removeProduct,
+        removeProduct,
         // productQuantity,
       }}>
       {children}
