@@ -11,68 +11,70 @@ import Plus from '../../images/Plus.svg';
 import Subtract from '../../images/Subtract.svg';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigation} from '../../routes';
+import {products} from '../../utibuData/data';
 
 export default function Details() {
   const navigation = useNavigation<RootNavigation>();
 
   return (
     <SafeAreaView style={styles.layout}>
-      <View style={styles.details}>
-        <Text style={styles.detailsHeading}>Product Details</Text>
-        <Image
-          style={styles.detailsImg}
-          source={require('../../images/Probiotic.png')}
-        />
-      </View>
-      <View style={styles.details2}>
-        <View style={styles.detailsDescription}>
-          <View style={styles.detailsName}>
-            <Text style={styles.detailstext}>Probiotic</Text>
-            <View style={styles.detailsAmountContainer}>
-              <Text style={styles.detailsAmount}>$50</Text>
+      <View>
+        {products.map(product => (
+          <View key={product.id}>
+            <View style={styles.details}>
+              <Text style={styles.detailsHeading}>Product Details</Text>
+              <Image
+                style={styles.detailsImg}
+                source={require('../../images/Probiotic.png')}
+              />
+            </View>
+            <View style={styles.details2}>
+              <View style={styles.detailsDescription}>
+                <View style={styles.detailsName}>
+                  <Text style={styles.detailstext}>{product.name}</Text>
+                  <View style={styles.detailsAmountContainer}>
+                    <Text style={styles.detailsAmount}>$ {product.price}</Text>
+                  </View>
+                </View>
+                <Text style={styles.detailsInfo}>{product.description}</Text>
+              </View>
+            </View>
+            <View style={styles.detailsCheckContainer}>
+              <View style={styles.detailsCheck}>
+                <View style={styles.detailsStock}>
+                  <View style={styles.line} />
+                  <Text style={styles.detailsCheckText}>In Stock</Text>
+                  <View style={styles.detailsAmountContainer}>
+                    <Text style={styles.detailsAmount}>{product.inStock}</Text>
+                  </View>
+                </View>
+                <View style={styles.detailsStock}>
+                  <View style={styles.line} />
+                  <Text style={styles.detailsCheckText}>select Count</Text>
+                  <View style={styles.detailsAmountContainerCount}>
+                    <Subtract style={styles.detailsAmountContainerCountClick} />
+                    <Text style={styles.detailsAmount}>3</Text>
+                    <Plus style={styles.detailsAmountContainerCountClick} />
+                  </View>
+                </View>
+                <View style={styles.detailsStock}>
+                  <View style={styles.line} />
+                  <Text style={styles.detailsCheckText}>Total</Text>
+                  <View style={styles.detailsAmountContainer}>
+                    <Text style={styles.detailsAmount}>$150</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.detailsAddContainer}>
+              <TouchableOpacity
+                style={styles.detailsAdd}
+                onPress={() => navigation.navigate('cart')}>
+                <Text style={styles.detailsText}>Add to Cart</Text>
+              </TouchableOpacity>
             </View>
           </View>
-          <Text style={styles.detailsInfo}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-            porttitor, est sit amet tincidunt viverra, elit arcu aliquam orci,
-            eu auctor lorem nunc vitae dui. Sed eget consequat ipsum, eget
-            luctus mauris.
-          </Text>
-        </View>
-      </View>
-      <View style={styles.detailsCheckContainer}>
-        <View style={styles.detailsCheck}>
-          <View style={styles.detailsStock}>
-            <View style={styles.line} />
-            <Text style={styles.detailsCheckText}>In Stock</Text>
-            <View style={styles.detailsAmountContainer}>
-              <Text style={styles.detailsAmount}>$50</Text>
-            </View>
-          </View>
-          <View style={styles.detailsStock}>
-            <View style={styles.line} />
-            <Text style={styles.detailsCheckText}>select Count</Text>
-            <View style={styles.detailsAmountContainerCount}>
-              <Subtract style={styles.detailsAmountContainerCountClick} />
-              <Text style={styles.detailsAmount}>3</Text>
-              <Plus style={styles.detailsAmountContainerCountClick} />
-            </View>
-          </View>
-          <View style={styles.detailsStock}>
-            <View style={styles.line} />
-            <Text style={styles.detailsCheckText}>Total</Text>
-            <View style={styles.detailsAmountContainer}>
-              <Text style={styles.detailsAmount}>$150</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View style={styles.detailsAddContainer}>
-        <TouchableOpacity
-          style={styles.detailsAdd}
-          onPress={() => navigation.navigate('cart')}>
-          <Text style={styles.detailsText}>Add to Cart</Text>
-        </TouchableOpacity>
+        ))}
       </View>
     </SafeAreaView>
   );

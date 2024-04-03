@@ -11,13 +11,9 @@ import {
 } from 'react-native';
 import Bars from '../../images/iconBars.svg';
 import Notification from '../../images/iconBell.svg';
-import ProductAdd from '../../images//add1.svg';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigation} from '../../routes';
-
-// import HomeIcon from '../../images/Home.svg';
-// import Orders from '../../images/PurchaseOrder.svg';
-// import User from '../../images/User.svg';
+import {products} from '../../utibuData/data';
 
 export default function Home() {
   const navigation = useNavigation<RootNavigation>();
@@ -34,82 +30,32 @@ export default function Home() {
       <View>
         <TextInput style={styles.input} placeholder="Search for medicine" />
       </View>
-      <View style={styles.categories}>
-        <Text style={styles.categoriesHeader}>Categories</Text>
-        <View style={styles.slide}>
-          <View style={styles.slide1}>
-            <Image
-              style={styles.catImg}
-              source={require('../../images/Probiotic.png')}
-            />
-            <View style={styles.slideInfo}>
-              <View>
-                <Text style={styles.slideName}>Medicine</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.slide1}>
-            <Image
-              style={styles.catImg}
-              source={require('../../images/Probiotic.png')}
-            />
-            <View style={styles.slideInfo}>
-              <View>
-                <Text style={styles.slideName}>Medicine</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.slide1}>
-            <Image
-              style={styles.catImg}
-              source={require('../../images/Probiotic.png')}
-            />
-            <View style={styles.slideInfo}>
-              <View>
-                <Text style={styles.slideName}>Medicine</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
       <View style={styles.products}>
         <View style={styles.productsHeader}>
           <Text style={styles.productsHeader1}>Featured products</Text>
           <Text style={styles.productsHeader2}>See all</Text>
         </View>
         <View style={styles.productFlex}>
-          <TouchableOpacity
-            style={styles.product}
-            onPress={() => navigation.navigate('details')}>
-            <View>
-              <Image source={require('../../images/Probiotic.png')} />
-            </View>
-            <View style={styles.productInfo}>
+          {products.map(product => (
+            <TouchableOpacity
+              key={product.id}
+              style={styles.product}
+              onPress={() => navigation.navigate('details')}>
               <View>
-                <Text style={styles.productName}>Probiotic</Text>
-                <Text style={styles.price}>$50</Text>
+                <Image source={require('../../images/Probiotic.png')} />
               </View>
-              <TouchableOpacity
-                style={styles.productAdd}
-                onPress={() => navigation.navigate('cart')}>
-                <ProductAdd style={styles.productAddIcon} />
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-          <View style={styles.product}>
-            <View>
-              <Image source={require('../../images/Probiotic.png')} />
-            </View>
-            <View style={styles.productInfo}>
-              <View>
-                <Text style={styles.productName}>Probiotic</Text>
-                <Text style={styles.price}>$50</Text>
+              <View style={styles.productInfo}>
+                <View>
+                  <Text style={styles.productName}>{product.name}</Text>
+                  <Text style={styles.price}>{product.price}</Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.productAdd}
+                  onPress={() => navigation.navigate('cart')}
+                />
               </View>
-              <View style={styles.productAdd}>
-                <ProductAdd style={styles.productAddIcon} />
-              </View>
-            </View>
-          </View>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
     </SafeAreaView>
