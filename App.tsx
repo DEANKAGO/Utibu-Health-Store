@@ -9,12 +9,15 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 import Routes from './src/routes';
+import {PharmacyCart} from './src/context/PharmacyContext';
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+    <PharmacyCart>
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </PharmacyCart>
   );
 }
 
