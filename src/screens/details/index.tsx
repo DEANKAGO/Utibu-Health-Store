@@ -6,12 +6,12 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import Plus from '../../images/Plus.svg';
 import Subtract from '../../images/Subtract.svg';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {RootNavigation, RootRoute} from '../../routes';
-import {products} from '../../utibuData/data';
 import {usePharmacyContext} from '../../context/PharmacyContext';
 
 export default function Details() {
@@ -25,8 +25,7 @@ export default function Details() {
   const {
     params: {product},
   } = useRoute<RootRoute<'details'>>();
-  // const quantity = productQuantity(id);
-
+  const quantity = productQuantity(product.id);
   return (
     <SafeAreaView style={styles.layout}>
       <View>
@@ -63,7 +62,7 @@ export default function Details() {
                     onPress={() => decreaseProductCart(product.id)}>
                     <Subtract style={styles.detailsAmountContainerCountClick} />
                   </TouchableOpacity>
-                  <Text style={styles.detailsAmount}>3</Text>
+                  <Text style={styles.detailsAmount}>{quantity}</Text>
                   <TouchableOpacity
                     onPress={() => increaseProductCart(product.id)}>
                     <Plus style={styles.detailsAmountContainerCountClick} />
@@ -79,12 +78,44 @@ export default function Details() {
               </View>
             </View>
           </View>
+          {/* <View style={styles.detailsAddContainer}>
+            {quantity === 0 ? (
+              <TouchableOpacity
+                style={styles.detailsAdd}
+                // onPress={() => navigation.navigate('cart')}>
+                onPress={() => increaseProductCart(product.id)}>
+                <Text style={styles.detailsText}>Add to Cart</Text>
+              </TouchableOpacity>
+            ) : (
+            )}
+          </View> */}
           <View style={styles.detailsAddContainer}>
-            <TouchableOpacity
-              style={styles.detailsAdd}
-              onPress={() => navigation.navigate('cart')}>
-              <Text style={styles.detailsText}>Add to Cart</Text>
-            </TouchableOpacity>
+            {quantity === 0 ? (
+              <TouchableOpacity
+                style={styles.detailsAdd}
+                onPress={() => increaseProductCart(product.id)}>
+                <Text style={styles.detailsText}>+ Add To Cart</Text>
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.cartItemDetails}>
+                <View style={styles.quantityControl}>
+                  <Button
+                    title="-"
+                    onPress={() => decreaseProductCart(product.id)}
+                  />
+                  <Text style={styles.quantityText}>{quantity} in cart</Text>
+                  <Button
+                    title="+"
+                    onPress={() => increaseProductCart(product.id)}
+                  />
+                </View>
+                <Button
+                  onPress={() => removeProduct(product.id)}
+                  title="Remove"
+                  color="red"
+                />
+              </View>
+            )}
           </View>
         </View>
       </View>
@@ -198,5 +229,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     fontWeight: '600',
+  },
+  cartItemDetails: {
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  quantityControl: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  quantityText: {
+    fontSize: 20,
+    marginHorizontal: 10,
   },
 });

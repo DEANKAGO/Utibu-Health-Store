@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
     // height: '20%',
   },
   productImg: {
-    width: 100,
-    height: 100,
+    width: 70,
+    height: 70,
   },
   floatingBtn: {
     position: 'absolute',

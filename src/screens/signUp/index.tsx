@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   SafeAreaView,
@@ -8,11 +8,37 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {RootNavigation} from '../../routes';
+import AuthService from '../../components/AuthService';
 
 export default function SignUp() {
   const navigation = useNavigation<RootNavigation>();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleSignUp = async () => {
+    const response = await AuthService.signUp(
+      firstName,
+      lastName,
+      email,
+      password,
+    );
+    if (response.Response.success) {
+      Alert.alert('Sign Up Successful');
+      setIsLoggedIn(true);
+      navigation.navigate('Home');
+    } else {
+      Alert.alert(
+        response.Response.error ||
+          'Could not complete the request. Please try again',
+      );
+    }
+  };
 
   return (
     <SafeAreaView style={styles.layout}>
@@ -26,19 +52,44 @@ export default function SignUp() {
       <View style={styles.inputView}>
         <Text style={styles.inputHeader}>Create your Account</Text>
         <View>
-          <TextInput style={styles.input} placeholder="Enter Name" />
-          <TextInput style={styles.input} placeholder="Enter Email" />
-          <TextInput style={styles.input} placeholder="Enter Password" />
-          <TextInput style={styles.input} placeholder="Confirm Password" />
+          <TextInput
+            style={styles.input}
+            onChangeText={setFirstName}
+            value={firstName}
+            placeholder="First Name"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={setLastName}
+            value={lastName}
+            placeholder="Last Name"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Enter Email"
+          />
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Enter Password"
+          />
         </View>
       </View>
       <View style={styles.signUp}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('logIn')}>
+          onPress={() => {
+            handleSignUp();
+          }}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
-        <Text>Already have an account? Log in</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('logIn')}>
+          <Text>Already have an account? Log in</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

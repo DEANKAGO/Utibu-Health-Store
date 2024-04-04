@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -8,11 +8,28 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {RootNavigation} from '../../routes';
+import AuthService from '../../components/AuthService';
 
 export default function LogIn() {
   const navigation = useNavigation<RootNavigation>();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    const response = await AuthService.login(email, password);
+    if (response.Response.success) {
+      Alert.alert('Login Successful');
+      navigation.navigate('Home');
+    } else {
+      Alert.alert(
+        response.Response.error || 'Invalid credentials. Please try again',
+      );
+    }
+  };
+
   return (
     <SafeAreaView style={styles.layout}>
       <View>
@@ -27,15 +44,28 @@ export default function LogIn() {
       <View style={styles.inputView}>
         <Text style={styles.inputHeader}>Log to your Account</Text>
         <View>
-          <TextInput style={styles.input} placeholder="Enter Email" />
-          <TextInput style={styles.input} placeholder="Enter Password" />
+          <TextInput
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Enter Email"
+          />
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Enter Password"
+          />
         </View>
       </View>
       <View style={styles.logIn}>
         <Text style={styles.forgotPassword}>Forgot Password</Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => {
+            handleLogin();
+          }}>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
       </View>

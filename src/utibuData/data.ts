@@ -23,8 +23,8 @@ export const products: Product[] = [
     imgUrl: require('../images/pharmacyGetStarted1.png'),
     description:
       'Probiotics 300 are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
-    price: 50,
-    inStock: 0,
+    price: 30,
+    inStock: 10,
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ export const products: Product[] = [
     description:
       'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
     price: 50,
-    inStock: 0,
+    inStock: 20,
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ export const products: Product[] = [
     description:
       'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
     price: 50,
-    inStock: 0,
+    inStock: 40,
   },
   {
     id: 5,
@@ -51,7 +51,7 @@ export const products: Product[] = [
     description:
       'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
     price: 50,
-    inStock: 0,
+    inStock: 7,
   },
   {
     id: 6,
@@ -60,6 +60,6 @@ export const products: Product[] = [
     description:
       'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
     price: 50,
-    inStock: 0,
+    inStock: 12,
   },
 ];

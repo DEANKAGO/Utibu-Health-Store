@@ -16,6 +16,7 @@ import orderConfirmationRider from '../screens/OrderConfirmationRider';
 import orderHistory from '../screens/OrderHistory';
 import HomeSVG from '../images/Home.svg';
 import ProfileSVG from '../images/User.svg';
+import OrderSVG from '../images/PurchaseOrder.svg';
 import {useKeyboard} from '@react-native-community/hooks';
 import {Platform, StatusBar, View} from 'react-native';
 import {
@@ -27,6 +28,7 @@ import MyProfile from '../screens/MyProfile';
 import {Text} from 'react-native-svg';
 import OrderHistory from '../screens/OrderHistory';
 import {Product} from '../utibuData/data';
+import SignUp from '../screens/SignUp';
 
 // import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -80,17 +82,27 @@ const Tabs = () => {
         component={Home}
         options={{
           headerShown: false,
-          tabBarIcon: () => <HomeSVG width={30} />,
+          tabBarIcon: ({focused}) => (focused ? <></> : <HomeSVG width={30} />),
           tabBarLabel: 'Home',
+        }}
+      />
+      <Tab.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (focused ? <></> : <HomeSVG width={30} />),
+          tabBarLabel: 'SignUp',
         }}
       />
       <Tab.Screen
         name="OrderHistory"
         component={OrderHistory}
         options={{
-          tabBarIcon: ({focused}) => <View />,
-          tabBarLabel: 'Order history',
           headerShown: false,
+          tabBarIcon: ({focused}) =>
+            focused ? <></> : <OrderSVG width={30} />,
+          tabBarLabel: 'Order history',
         }}
       />
       <Tab.Screen
@@ -148,11 +160,11 @@ export default () => {
           options={{headerShown: false}}
         />
 
-        {/* <Root.Screen
+        <Root.Screen
           name="myProfile"
-          component={myProfile}
+          component={MyProfile}
           options={{headerShown: false}}
-        /> */}
+        />
 
         <Root.Screen
           name="details"
