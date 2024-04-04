@@ -50,8 +50,7 @@ const login = async (email: string, password: string) => {
   const existingUser = users.find(
     user => user.email === email.toLowerCase() && user.password === password,
   );
-  console.log('users===>', users);
-  console.log('existingUser===>', existingUser);
+
   if (existingUser) {
     AsyncStorage.setItem('@loginUserData', JSON.stringify(existingUser));
     return {

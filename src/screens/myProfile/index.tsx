@@ -12,9 +12,16 @@ import LogoutRounded from '../../images/LogoutRounded.svg';
 import Go from '../../images/MoreThan.svg';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigation} from '../../routes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function MyProfile() {
   const navigation = useNavigation<RootNavigation>();
+
+  const logout = () => {
+    AsyncStorage.removeItem('@loginUserData');
+    navigation.navigate('logIn');
+  };
+
   return (
     <SafeAreaView style={styles.layout}>
       <View style={styles.profile}>
@@ -36,9 +43,7 @@ export default function MyProfile() {
           </View>
           <Go style={styles.buttonGo} />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('logIn')}>
+        <TouchableOpacity style={styles.button} onPress={logout}>
           <View style={styles.buttonLogout}>
             <LogoutRounded />
             <Text style={styles.text}>Log Out</Text>

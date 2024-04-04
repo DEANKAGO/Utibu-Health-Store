@@ -19,7 +19,6 @@ export default function SignUp() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSignUp = async () => {
     const response = await AuthService.signUp(
@@ -30,8 +29,7 @@ export default function SignUp() {
     );
     if (response.Response.success) {
       Alert.alert('Sign Up Successful');
-      setIsLoggedIn(true);
-      navigation.navigate('Home');
+      navigation.navigate('logIn');
     } else {
       Alert.alert(
         response.Response.error ||

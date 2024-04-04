@@ -30,8 +30,6 @@ import OrderHistory from '../screens/OrderHistory';
 import {Product} from '../utibuData/data';
 import SignUp from '../screens/SignUp';
 
-// import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
 type TabParamList = {
   Home: undefined;
   OrderHistory: undefined;
@@ -129,8 +127,9 @@ export default () => {
   return (
     <>
       <StatusBar animated={true} backgroundColor={'black'} />
+
       <Root.Navigator
-        initialRouteName="Tabs"
+        initialRouteName={'Tabs'}
         screenOptions={{
           headerTitleAlign: 'center',
           headerTitleStyle: {
@@ -159,7 +158,6 @@ export default () => {
           component={getStarted}
           options={{headerShown: false}}
         />
-
         <Root.Screen
           name="myProfile"
           component={MyProfile}

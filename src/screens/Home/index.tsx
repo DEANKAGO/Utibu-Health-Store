@@ -1,5 +1,5 @@
 // import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -17,11 +17,25 @@ import ShoppingCart from '../../images/ShoppingCart.svg';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigation} from '../../routes';
 import {products} from '../../utibuData/data';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const {height} = Dimensions.get('window');
 
 export default function Home() {
   const navigation = useNavigation<RootNavigation>();
+
+  const checkLogin = useCallback(async () => {
+    const loggedInData = await AsyncStorage.getItem('@loginUserData');
+
+    if (!loggedInData || loggedInData === null) {
+      navigation.navigate('getStarted');
+    }
+  }, [navigation]);
+
+  useEffect(() => {
+    checkLogin();
+  }, [checkLogin]);
+
   return (
     <SafeAreaView style={styles.layout}>
       <View style={styles.barsHeader}>
