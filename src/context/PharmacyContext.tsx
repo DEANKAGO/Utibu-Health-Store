@@ -66,7 +66,7 @@ export function PharmacyCart({children}: PharmacyCartProps) {
   }
 
   function productQuantity(id: number) {
-    return cartProducts.find(product => product.id == id)?.quantity || 0
+    return cartProducts.find(product => product.id == id)?.quantity || 0;
   }
 
   return (

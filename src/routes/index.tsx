@@ -14,6 +14,8 @@ import getStarted from '../screens/GetStarted';
 import logIn from '../screens/LogIn';
 import orderConfirmationRider from '../screens/OrderConfirmationRider';
 import orderHistory from '../screens/OrderHistory';
+import HomeSVG from '../images/Home.svg';
+import ProfileSVG from '../images/User.svg';
 import {useKeyboard} from '@react-native-community/hooks';
 import {Platform, StatusBar, View} from 'react-native';
 import {
@@ -24,6 +26,7 @@ import {
 import MyProfile from '../screens/MyProfile';
 import {Text} from 'react-native-svg';
 import OrderHistory from '../screens/OrderHistory';
+import {Product} from '../utibuData/data';
 
 // import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -40,7 +43,9 @@ export type RootParamList = {
   signUp: undefined;
   logIn: undefined;
   myProfile: undefined;
-  details: undefined;
+  details: {
+    product: Product;
+  };
   cart: undefined;
   checkOut: undefined;
   orderConfirmationRider: undefined;
@@ -70,7 +75,15 @@ const Tabs = () => {
     <Tab.Navigator
       // eslint-disable-next-line react/no-unstable-nested-components
       tabBar={props => <TabBar {...props} />}>
-      <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => <HomeSVG width={30} />,
+          tabBarLabel: 'Home',
+        }}
+      />
       <Tab.Screen
         name="OrderHistory"
         component={OrderHistory}
@@ -83,7 +96,11 @@ const Tabs = () => {
       <Tab.Screen
         name="MyProfile"
         component={MyProfile}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) =>
+            focused ? <></> : <ProfileSVG width={30} />,
+        }}
       />
     </Tab.Navigator>
   );

@@ -9,72 +9,84 @@ import {
 } from 'react-native';
 import Plus from '../../images/Plus.svg';
 import Subtract from '../../images/Subtract.svg';
-import {useNavigation} from '@react-navigation/native';
-import {RootNavigation} from '../../routes';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {RootNavigation, RootRoute} from '../../routes';
 import {products} from '../../utibuData/data';
+import {usePharmacyContext} from '../../context/PharmacyContext';
 
 export default function Details() {
+  const {
+    increaseProductCart,
+    decreaseProductCart,
+    removeProduct,
+    productQuantity,
+  } = usePharmacyContext();
   const navigation = useNavigation<RootNavigation>();
+  const {
+    params: {product},
+  } = useRoute<RootRoute<'details'>>();
+  // const quantity = productQuantity(id);
 
   return (
     <SafeAreaView style={styles.layout}>
       <View>
-        {products.map(product => (
-          <View key={product.id}>
-            <View style={styles.details}>
-              <Text style={styles.detailsHeading}>Product Details</Text>
-              <Image
-                style={styles.detailsImg}
-                source={require('../../images/Probiotic.png')}
-              />
-            </View>
-            <View style={styles.details2}>
-              <View style={styles.detailsDescription}>
-                <View style={styles.detailsName}>
-                  <Text style={styles.detailstext}>{product.name}</Text>
-                  <View style={styles.detailsAmountContainer}>
-                    <Text style={styles.detailsAmount}>$ {product.price}</Text>
-                  </View>
-                </View>
-                <Text style={styles.detailsInfo}>{product.description}</Text>
-              </View>
-            </View>
-            <View style={styles.detailsCheckContainer}>
-              <View style={styles.detailsCheck}>
-                <View style={styles.detailsStock}>
-                  <View style={styles.line} />
-                  <Text style={styles.detailsCheckText}>In Stock</Text>
-                  <View style={styles.detailsAmountContainer}>
-                    <Text style={styles.detailsAmount}>{product.inStock}</Text>
-                  </View>
-                </View>
-                <View style={styles.detailsStock}>
-                  <View style={styles.line} />
-                  <Text style={styles.detailsCheckText}>select Count</Text>
-                  <View style={styles.detailsAmountContainerCount}>
-                    <Subtract style={styles.detailsAmountContainerCountClick} />
-                    <Text style={styles.detailsAmount}>3</Text>
-                    <Plus style={styles.detailsAmountContainerCountClick} />
-                  </View>
-                </View>
-                <View style={styles.detailsStock}>
-                  <View style={styles.line} />
-                  <Text style={styles.detailsCheckText}>Total</Text>
-                  <View style={styles.detailsAmountContainer}>
-                    <Text style={styles.detailsAmount}>$150</Text>
-                  </View>
+        <View key={product.id}>
+          <View style={styles.details}>
+            <Text style={styles.detailsHeading}>Product Details</Text>
+            <Image style={styles.detailsImg} source={product.imgUrl} />
+          </View>
+          <View style={styles.details2}>
+            <View style={styles.detailsDescription}>
+              <View style={styles.detailsName}>
+                <Text style={styles.detailstext}>{product.name}</Text>
+                <View style={styles.detailsAmountContainer}>
+                  <Text style={styles.detailsAmount}>$ {product.price}</Text>
                 </View>
               </View>
-            </View>
-            <View style={styles.detailsAddContainer}>
-              <TouchableOpacity
-                style={styles.detailsAdd}
-                onPress={() => navigation.navigate('cart')}>
-                <Text style={styles.detailsText}>Add to Cart</Text>
-              </TouchableOpacity>
+              <Text style={styles.detailsInfo}>{product.description}</Text>
             </View>
           </View>
-        ))}
+          <View style={styles.detailsCheckContainer}>
+            <View style={styles.detailsCheck}>
+              <View style={styles.detailsStock}>
+                <View style={styles.line} />
+                <Text style={styles.detailsCheckText}>In Stock</Text>
+                <View style={styles.detailsAmountContainer}>
+                  <Text style={styles.detailsAmount}>{product.inStock}</Text>
+                </View>
+              </View>
+              <View style={styles.detailsStock}>
+                <View style={styles.line} />
+                <Text style={styles.detailsCheckText}>select Count</Text>
+                <View style={styles.detailsAmountContainerCount}>
+                  <TouchableOpacity
+                    onPress={() => decreaseProductCart(product.id)}>
+                    <Subtract style={styles.detailsAmountContainerCountClick} />
+                  </TouchableOpacity>
+                  <Text style={styles.detailsAmount}>3</Text>
+                  <TouchableOpacity
+                    onPress={() => increaseProductCart(product.id)}>
+                    <Plus style={styles.detailsAmountContainerCountClick} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.detailsStock}>
+                <View style={styles.line} />
+                <Text style={styles.detailsCheckText}>Total</Text>
+                <View style={styles.detailsAmountContainer}>
+                  <Text style={styles.detailsAmount}>$150</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View style={styles.detailsAddContainer}>
+            <TouchableOpacity
+              style={styles.detailsAdd}
+              onPress={() => navigation.navigate('cart')}>
+              <Text style={styles.detailsText}>Add to Cart</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );

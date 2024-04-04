@@ -8,12 +8,17 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Dimensions,
+  FlatList,
 } from 'react-native';
 import Bars from '../../images/iconBars.svg';
 import Notification from '../../images/iconBell.svg';
+import ShoppingCart from '../../images/ShoppingCart.svg';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigation} from '../../routes';
 import {products} from '../../utibuData/data';
+
+const {height} = Dimensions.get('window');
 
 export default function Home() {
   const navigation = useNavigation<RootNavigation>();
@@ -36,27 +41,42 @@ export default function Home() {
           <Text style={styles.productsHeader2}>See all</Text>
         </View>
         <View style={styles.productFlex}>
-          {products.map(product => (
-            <TouchableOpacity
-              key={product.id}
-              style={styles.product}
-              onPress={() => navigation.navigate('details')}>
-              <View>
-                <Image source={require('../../images/Probiotic.png')} />
-              </View>
-              <View style={styles.productInfo}>
+          <FlatList
+            numColumns={2}
+            columnWrapperStyle={styles.column}
+            showsVerticalScrollIndicator={false}
+            data={products}
+            contentContainerStyle={styles.contentContainer}
+            renderItem={({item: product}) => (
+              <TouchableOpacity
+                key={product?.id}
+                style={styles.product}
+                onPress={() => navigation.navigate('details', {product})}>
                 <View>
-                  <Text style={styles.productName}>{product.name}</Text>
-                  <Text style={styles.price}>{product.price}</Text>
+                  <Image source={product.imgUrl} style={styles.productImg} />
                 </View>
-                <TouchableOpacity
-                  style={styles.productAdd}
-                  onPress={() => navigation.navigate('cart')}
-                />
-              </View>
-            </TouchableOpacity>
-          ))}
+                <View style={styles.productInfo}>
+                  <View>
+                    <Text style={styles.productName}>{product?.name}</Text>
+                    <Text style={styles.price}>{product?.price}</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={styles.productAdd}
+                    onPress={() => navigation.navigate('cart')}
+                  />
+                </View>
+              </TouchableOpacity>
+            )}
+          />
         </View>
+        <TouchableOpacity
+          style={styles.floatingBtn}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate('cart')}>
+          <View>
+            <ShoppingCart />
+          </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -128,7 +148,6 @@ const styles = StyleSheet.create({
   products: {
     padding: 10,
     marginTop: 5,
-    alignItems: 'center',
   },
   productsHeader: {
     width: '100%',
@@ -144,12 +163,13 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   productFlex: {
-    flexDirection: 'row',
+    paddingTop: 20,
+    paddingBottom: 40,
   },
   product: {
     backgroundColor: '#E8F3F1',
-    width: 180,
-    height: 180,
+    width: 150,
+    height: 150,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -176,4 +196,26 @@ const styles = StyleSheet.create({
     // borderRadius: 50,
     // height: '20%',
   },
+  productImg: {
+    width: 100,
+    height: 100,
+  },
+  floatingBtn: {
+    position: 'absolute',
+    width: 52,
+    height: 52,
+    borderRadius: 27.5,
+    top: height - 320,
+    justifyContent: 'center',
+    alignItems: 'center',
+    left: '45%',
+    shadowColor: 'black',
+    backgroundColor: 'blue',
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 100,
+    zIndex: 100,
+  },
+  contentContainer: {paddingBottom: 100},
+  column: {justifyContent: 'space-between'},
 });
