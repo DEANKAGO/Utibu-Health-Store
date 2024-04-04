@@ -10,9 +10,14 @@ import {
 import Delete from '../../images/Remove.svg';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigation} from '../../routes';
+import {usePharmacyContext} from '../../context/PharmacyContext';
+import {FlatList} from 'react-native-gesture-handler';
+
+const deliveryFee = 50;
 
 export default function Cart() {
   const navigation = useNavigation<RootNavigation>();
+  const {cartProducts, removeFromCart, getCartTotal} = usePharmacyContext();
 
   return (
     <SafeAreaView style={styles.layout}>
@@ -20,91 +25,55 @@ export default function Cart() {
         <View style={styles.cartHeader}>
           <Text style={styles.cartHeader}>Your Cart</Text>
         </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity style={styles.cartTouch}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
+        <FlatList
+          data={cartProducts}
+          renderItem={item => (
+            <View style={styles.cartProducts}>
+              <TouchableOpacity style={styles.cartTouch}>
+                <View style={styles.cartInfo}>
+                  <View style={styles.cartImg}>
+                    <Image
+                      style={styles.cartImgView}
+                      source={item.item.imgUrl}
+                    />
+                  </View>
+                  <View style={styles.cartDesc}>
+                    <View style={styles.cartDescHeader}>
+                      <Text style={styles.cartDescHeader1}>
+                        {item.item.name} (*{item.item.count})
+                      </Text>
+                      <Text style={styles.cartDescHeader2}>
+                        Order Number #123456
+                      </Text>
+                    </View>
+                  </View>
                 </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity style={styles.cartTouch}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
+                <View style={styles.cartPriceheader}>
+                  <Text style={styles.cartPrice}>${item.item.total}</Text>
+                  <TouchableOpacity
+                    onPress={() => removeFromCart(item.item.id)}>
+                    <Delete />
+                  </TouchableOpacity>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity style={styles.cartTouch}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
+          )}
+        />
       </View>
       <View style={styles.checkout}>
         <View style={styles.checkoutinfo}>
           <Text style={styles.checkoutinfo1}>Order</Text>
-          <Text style={styles.checkoutinfo2}>$150</Text>
+          <Text style={styles.checkoutinfo2}>${getCartTotal()}</Text>
         </View>
         <View style={styles.checkoutinfo}>
           <Text style={styles.checkoutinfo1}>Delivery</Text>
-          <Text style={styles.checkoutinfo2}>$10</Text>
+          <Text style={styles.checkoutinfo2}>${deliveryFee}</Text>
         </View>
         <View style={styles.checkoutinfo}>
           <Text style={styles.checkoutinfo1}>Total</Text>
-          <Text style={styles.checkoutinfo2}>$160</Text>
+          <Text style={styles.checkoutinfo2}>
+            ${getCartTotal() + deliveryFee}
+          </Text>
         </View>
         <View style={styles.checkoutButton}>
           <TouchableOpacity

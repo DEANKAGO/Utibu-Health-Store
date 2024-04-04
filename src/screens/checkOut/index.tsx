@@ -11,9 +11,22 @@ import Paypal from '../../images/PayPal.svg';
 import CreditCart from '../../images/CreditCard.svg';
 import {RootNavigation} from '../../routes';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CartProduct, usePharmacyContext} from '../../context/PharmacyContext';
 
 export default function CheckOut() {
   const navigation = useNavigation<RootNavigation>();
+  const {cartProducts, clearCart} = usePharmacyContext();
+
+  const checkOut = async () => {
+    const orders_string = (await AsyncStorage.getItem('@orders')) || '[]';
+    const orders: CartProduct[] = JSON.parse(orders_string);
+    const new_orders = [...cartProducts, ...orders];
+
+    AsyncStorage.setItem('@orders', JSON.stringify(new_orders));
+    clearCart();
+    navigation.navigate('orderConfirmationRider');
+  };
 
   return (
     <SafeAreaView style={styles.layout}>
@@ -48,9 +61,7 @@ export default function CheckOut() {
         <TouchableOpacity />
       </View>
       <View style={styles.checkoutButton}>
-        <TouchableOpacity
-          style={styles.checkoutButton1}
-          onPress={() => navigation.navigate('orderConfirmationRider')}>
+        <TouchableOpacity style={styles.checkoutButton1} onPress={checkOut}>
           <Text style={styles.checkoutText}>CheckOut</Text>
         </TouchableOpacity>
       </View>

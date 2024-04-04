@@ -1,19 +1,21 @@
 import {createContext, ReactNode, useContext, useState} from 'react';
+import {Product} from '../utibuData/data';
 
 type PharmacyCartProps = {
   children: ReactNode;
 };
 
-type PharmacyContext = {
-  increaseProductCart: (id: number) => void;
-  decreaseProductCart: (id: number) => void;
-  removeProduct: (id: number) => void;
-  productQuantity: (id: number) => number;
+export type CartProduct = Product & {
+  count: number;
+  total: number;
 };
 
-type CartProduct = {
-  id: number;
-  quantity: number;
+type PharmacyContext = {
+  addToCart: (product: CartProduct) => void;
+  removeFromCart: (id: number) => void;
+  getCartTotal: () => number;
+  clearCart: () => void;
+  cartProducts: CartProduct[];
 };
 
 const PharmacyContext = createContext({} as PharmacyContext);
@@ -25,57 +27,39 @@ export function usePharmacyContext() {
 export function PharmacyCart({children}: PharmacyCartProps) {
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
 
-  function increaseProductCart(id: number) {
-    setCartProducts(availableProducts => {
-      if (availableProducts.find(product => product.id === id) === null) {
-        return [...availableProducts, {id, quantity: 1}];
+  const addToCart = (product: CartProduct) => {
+    setCartProducts(products => {
+      const existingProduct = products.find(p => p.id === product.id);
+      if (existingProduct) {
+        existingProduct.count = existingProduct.count + product.count;
+        existingProduct.total = existingProduct.total + product.total;
+        return products;
       } else {
-        return availableProducts.map(product => {
-          if (product.id === id) {
-            return {...product, quantity: product.quantity + 1};
-          } else {
-            return product;
-          }
-        });
+        return [product, ...products];
       }
     });
-  }
+  };
 
-  function decreaseProductCart(id: number) {
-    setCartProducts(availableProducts => {
-      if (
-        availableProducts.find(product => product.id === id)?.quantity === 1
-      ) {
-        return availableProducts.filter(product => product.id == id);
-      } else {
-        return availableProducts.map(product => {
-          if (product.id === id) {
-            return {...product, quantity: product.quantity - 1};
-          } else {
-            return product;
-          }
-        });
-      }
-    });
-  }
+  const removeFromCart = (id: number) => {
+    setCartProducts(products => products.filter(p => p.id !== id));
+  };
 
-  function removeProduct(id: number) {
-    setCartProducts(availableProducts => {
-      return availableProducts.filter(product => product.id !== id);
-    });
-  }
+  const clearCart = () => setCartProducts([]);
 
-  function productQuantity(id: number) {
-    return cartProducts.find(product => product.id == id)?.quantity || 0;
-  }
+  const getCartTotal = () => {
+    return (
+      cartProducts.reduce((total, product) => total + product.total, 0) || 0
+    );
+  };
 
   return (
     <PharmacyContext.Provider
       value={{
-        increaseProductCart,
-        decreaseProductCart,
-        removeProduct,
-        productQuantity,
+        addToCart,
+        removeFromCart,
+        getCartTotal,
+        cartProducts,
+        clearCart,
       }}>
       {children}
     </PharmacyContext.Provider>

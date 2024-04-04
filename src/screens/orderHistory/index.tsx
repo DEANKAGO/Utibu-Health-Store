@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -10,306 +10,61 @@ import {
 import Delete from '../../images/Remove.svg';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigation} from '../../routes';
-import {ScrollView} from 'react-native-gesture-handler';
+import {FlatList} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CartProduct} from '../../context/PharmacyContext';
 
 export default function OrderHistory() {
   const navigation = useNavigation<RootNavigation>();
+  const [orders, setOrders] = useState<CartProduct[]>([]);
 
+  const fetchOrders = async () => {
+    const _orders = (await AsyncStorage.getItem('@orders')) || '[]';
+    setOrders(JSON.parse(_orders));
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+  console.log("orders==>", orders);
+  
   return (
     <SafeAreaView style={styles.layout}>
       <View style={styles.cartHeader}>
-        <Text style={styles.cartHeader}>Your Cart</Text>
+        <Text style={styles.cartHeader}>Your order history</Text>
       </View>
-      <ScrollView
+      <FlatList
+        data={orders}
         contentContainerStyle={styles.cart}
-        showsVerticalScrollIndicator={false}>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('details')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
+        showsVerticalScrollIndicator={false}
+        renderItem={item => (
+          <View style={styles.cartProducts}>
+            <TouchableOpacity
+              style={styles.cartTouch}
+              onPress={() => navigation.navigate('details')}>
+              <View style={styles.cartInfo}>
+                <View style={styles.cartImg}>
+                  <Image style={styles.cartImgView} source={item.item.imgUrl} />
+                </View>
+                <View style={styles.cartDesc}>
+                  <View style={styles.cartDescHeader}>
+                    <Text style={styles.cartDescHeader1}>
+                      {item.item.name} (*{item.item.count})
+                    </Text>
+                    <Text style={styles.cartDescHeader2}>
+                      Order Number #123456
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('details')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
+              <View style={styles.cartPriceheader}>
+                <Text style={styles.cartPrice}>${item.item.total}</Text>
+                <Delete />
               </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('details')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('details')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('details')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('checkOut')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('checkOut')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('checkOut')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('checkOut')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('checkOut')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cartProducts}>
-          <TouchableOpacity
-            style={styles.cartTouch}
-            onPress={() => navigation.navigate('checkOut')}>
-            <View style={styles.cartInfo}>
-              <View style={styles.cartImg}>
-                <Image
-                  style={styles.cartImgView}
-                  source={require('../../images/Probiotic.png')}
-                />
-              </View>
-              <View style={styles.cartDesc}>
-                <View style={styles.cartDescHeader}>
-                  <Text style={styles.cartDescHeader1}>Probiotic (*2)</Text>
-                  <Text style={styles.cartDescHeader2}>
-                    Order Number #123456
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.cartPriceheader}>
-              <Text style={styles.cartPrice}>$150</Text>
-              <Delete />
-            </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 }

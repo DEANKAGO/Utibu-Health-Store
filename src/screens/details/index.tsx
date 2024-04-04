@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import Plus from '../../images/Plus.svg';
 import Subtract from '../../images/Subtract.svg';
@@ -15,17 +14,17 @@ import {RootNavigation, RootRoute} from '../../routes';
 import {usePharmacyContext} from '../../context/PharmacyContext';
 
 export default function Details() {
-  const {
-    increaseProductCart,
-    decreaseProductCart,
-    removeProduct,
-    productQuantity,
-  } = usePharmacyContext();
+  const {addToCart} = usePharmacyContext();
   const navigation = useNavigation<RootNavigation>();
   const {
     params: {product},
   } = useRoute<RootRoute<'details'>>();
-  const quantity = productQuantity(product.id);
+  const [count, setCount] = useState(1);
+
+  // useEffect(() => {
+  //   clearCart();
+  // }, []);
+
   return (
     <SafeAreaView style={styles.layout}>
       <View>
@@ -59,12 +58,18 @@ export default function Details() {
                 <Text style={styles.detailsCheckText}>select Count</Text>
                 <View style={styles.detailsAmountContainerCount}>
                   <TouchableOpacity
-                    onPress={() => decreaseProductCart(product.id)}>
+                    onPress={() =>
+                      setCount(prev => (prev === 1 ? prev : prev - 1))
+                    }>
                     <Subtract style={styles.detailsAmountContainerCountClick} />
                   </TouchableOpacity>
-                  <Text style={styles.detailsAmount}>{quantity}</Text>
+                  <Text style={styles.detailsAmount}>{count}</Text>
                   <TouchableOpacity
-                    onPress={() => increaseProductCart(product.id)}>
+                    onPress={() =>
+                      setCount(prev =>
+                        prev === product.inStock ? prev : prev + 1,
+                      )
+                    }>
                     <Plus style={styles.detailsAmountContainerCountClick} />
                   </TouchableOpacity>
                 </View>
@@ -73,49 +78,26 @@ export default function Details() {
                 <View style={styles.line} />
                 <Text style={styles.detailsCheckText}>Total</Text>
                 <View style={styles.detailsAmountContainer}>
-                  <Text style={styles.detailsAmount}>$150</Text>
+                  <Text style={styles.detailsAmount}>
+                    $ {count ? product.price * count : product.price}
+                  </Text>
                 </View>
               </View>
             </View>
           </View>
-          {/* <View style={styles.detailsAddContainer}>
-            {quantity === 0 ? (
-              <TouchableOpacity
-                style={styles.detailsAdd}
-                // onPress={() => navigation.navigate('cart')}>
-                onPress={() => increaseProductCart(product.id)}>
-                <Text style={styles.detailsText}>Add to Cart</Text>
-              </TouchableOpacity>
-            ) : (
-            )}
-          </View> */}
           <View style={styles.detailsAddContainer}>
-            {quantity === 0 ? (
-              <TouchableOpacity
-                style={styles.detailsAdd}
-                onPress={() => increaseProductCart(product.id)}>
-                <Text style={styles.detailsText}>+ Add To Cart</Text>
-              </TouchableOpacity>
-            ) : (
-              <View style={styles.cartItemDetails}>
-                <View style={styles.quantityControl}>
-                  <Button
-                    title="-"
-                    onPress={() => decreaseProductCart(product.id)}
-                  />
-                  <Text style={styles.quantityText}>{quantity} in cart</Text>
-                  <Button
-                    title="+"
-                    onPress={() => increaseProductCart(product.id)}
-                  />
-                </View>
-                <Button
-                  onPress={() => removeProduct(product.id)}
-                  title="Remove"
-                  color="red"
-                />
-              </View>
-            )}
+            <TouchableOpacity
+              style={styles.detailsAdd}
+              onPress={() => {
+                addToCart({
+                  ...product,
+                  total: product.price * count,
+                  count: count,
+                });
+                navigation.navigate('cart');
+              }}>
+              <Text style={styles.detailsText}>Add to Cart</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
