@@ -20,7 +20,7 @@ export default function GetStarted() {
           <View style={styles.imgView} />
           <Image
             style={styles.getStartedImg}
-            source={require('../../images/pharmacyGetStarted1.png')}
+            source={require('../../images/bg.jpeg')}
             alt=""
           />
           <Text style={styles.getStartedText}>Utibu Health Store</Text>

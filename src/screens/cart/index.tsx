@@ -188,4 +188,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '500',
   },
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: 'center',
+  },
+  label: {
+    margin: 8,
+  },
 });

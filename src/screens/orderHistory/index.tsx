@@ -7,15 +7,12 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import Delete from '../../images/Remove.svg';
-import {useNavigation} from '@react-navigation/native';
-import {RootNavigation} from '../../routes';
 import {FlatList} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CartProduct} from '../../context/PharmacyContext';
 
 export default function OrderHistory() {
-  const navigation = useNavigation<RootNavigation>();
+  // const navigation = useNavigation<RootNavigation>();
   const [orders, setOrders] = useState<CartProduct[]>([]);
 
   const fetchOrders = async () => {
@@ -26,8 +23,8 @@ export default function OrderHistory() {
   useEffect(() => {
     fetchOrders();
   }, []);
-  console.log("orders==>", orders);
-  
+  console.log('orders==>', orders);
+
   return (
     <SafeAreaView style={styles.layout}>
       <View style={styles.cartHeader}>
@@ -39,9 +36,7 @@ export default function OrderHistory() {
         showsVerticalScrollIndicator={false}
         renderItem={item => (
           <View style={styles.cartProducts}>
-            <TouchableOpacity
-              style={styles.cartTouch}
-              onPress={() => navigation.navigate('details')}>
+            <TouchableOpacity style={styles.cartTouch}>
               <View style={styles.cartInfo}>
                 <View style={styles.cartImg}>
                   <Image style={styles.cartImgView} source={item.item.imgUrl} />
@@ -51,15 +46,12 @@ export default function OrderHistory() {
                     <Text style={styles.cartDescHeader1}>
                       {item.item.name} (*{item.item.count})
                     </Text>
-                    <Text style={styles.cartDescHeader2}>
-                      Order Number #123456
-                    </Text>
+                    <Text style={styles.cartDescHeader2} />
                   </View>
                 </View>
               </View>
               <View style={styles.cartPriceheader}>
                 <Text style={styles.cartPrice}>${item.item.total}</Text>
-                <Delete />
               </View>
             </TouchableOpacity>
           </View>

@@ -72,7 +72,7 @@ export default function Home() {
                 <View style={styles.productInfo}>
                   <View>
                     <Text style={styles.productName}>{product?.name}</Text>
-                    <Text style={styles.price}>{product?.price}</Text>
+                    <Text style={styles.price}>$ {product?.price}</Text>
                   </View>
                   <TouchableOpacity
                     style={styles.productAdd}

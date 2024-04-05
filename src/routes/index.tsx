@@ -85,15 +85,6 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) => (focused ? <></> : <HomeSVG width={30} />),
-          tabBarLabel: 'SignUp',
-        }}
-      />
-      <Tab.Screen
         name="OrderHistory"
         component={OrderHistory}
         options={{

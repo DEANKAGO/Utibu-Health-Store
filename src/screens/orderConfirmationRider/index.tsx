@@ -29,9 +29,6 @@ export default function OrderConfirmation() {
           style={styles.deliverFeedbackImage}
           source={require('../../images/pharmacyD.png')}
         />
-        <Text style={styles.deliverFeedbackTime}>
-          Estimate Delivery in 35 Minutes
-        </Text>
       </View>
       <View style={styles.deliverFeedbackItems}>
         <View style={styles.deliverHome}>

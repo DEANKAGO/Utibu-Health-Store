@@ -21,10 +21,6 @@ export default function Details() {
   } = useRoute<RootRoute<'details'>>();
   const [count, setCount] = useState(1);
 
-  // useEffect(() => {
-  //   clearCart();
-  // }, []);
-
   return (
     <SafeAreaView style={styles.layout}>
       <View>

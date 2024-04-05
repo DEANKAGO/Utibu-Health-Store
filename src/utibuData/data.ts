@@ -10,47 +10,47 @@ export type Product = {
 export const products: Product[] = [
   {
     id: 1,
-    name: 'Probiotic',
-    imgUrl: require('../images/pharmacyDelivery1.png'),
+    name: 'Truvada',
+    imgUrl: require('../images/drug1.jpeg'),
     description:
-      'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
+      'Protein is important because it is needed to make, repair and maintain cells in the body. It also plays a role in the immune system.',
     price: 50,
     inStock: 17,
   },
   {
     id: 2,
-    name: 'Probiotoc 3000',
-    imgUrl: require('../images/pharmacyGetStarted1.png'),
+    name: 'Gilead',
+    imgUrl: require('../images/drug2.jpeg'),
     description:
-      'Probiotics 300 are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
+      'Only HIV medication will increase your CD4 count. Nothing else, including multi-vitamins, supplements or herbal remedies can increase your CD4 count.',
     price: 30,
     inStock: 10,
   },
   {
     id: 3,
-    name: 'Probiotoc',
-    imgUrl: require('../images/profile.png'),
+    name: 'ARVs',
+    imgUrl: require('../images/arvs.jpg'),
     description:
-      'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
-    price: 50,
+      'The most effective treatment for HIV is antiretroviral therapy (ART). This is a combination of several medicines that aims to control the amount of virus in your body.',
+    price: 35,
     inStock: 20,
   },
   {
     id: 4,
-    name: 'Probiotoc',
-    imgUrl: require('../images/Probiotic.png'),
+    name: 'VOA',
+    imgUrl: require('../images/drug4.webp'),
     description:
-      'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
-    price: 50,
-    inStock: 40,
+      'CD4 cell count is an indicator of immune function in patients living with HIV and one of the key determinants for the need of opportunistic infection (OI) prophylaxis.',
+    price: 10,
+    inStock: 7,
   },
   {
     id: 5,
-    name: 'Probiotoc',
-    imgUrl: require('../images/Probiotic.png'),
+    name: 'Prep',
+    imgUrl: require('../images/drug5.png'),
     description:
-      'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
-    price: 50,
+      'CD4 cell count is an indicator of immune function in patients living with HIV and one of the key determinants for the need of opportunistic infection (OI) prophylaxis.',
+    price: 80,
     inStock: 7,
   },
   {
@@ -59,7 +59,25 @@ export const products: Product[] = [
     imgUrl: require('../images/Probiotic.png'),
     description:
       'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
-    price: 50,
+    price: 20,
+    inStock: 12,
+  },
+  {
+    id: 7,
+    name: 'Prevenir',
+    imgUrl: require('../images/drug6.jpeg'),
+    description:
+      'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
+    price: 23,
+    inStock: 12,
+  },
+  {
+    id: 8,
+    name: '701',
+    imgUrl: require('../images/drug8.jpeg'),
+    description:
+      'Probiotics are food and health products that contribute live, beneficial microbes to the populations within your gut and elsewhere, in order to strengthen those communities.',
+    price: 27,
     inStock: 12,
   },
 ];

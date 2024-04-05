@@ -68,6 +68,11 @@ export default function LogIn() {
           }}>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('signUp')}>
+          <Text style={styles.forgotPassword}>
+            Don't have an account? SignUp
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

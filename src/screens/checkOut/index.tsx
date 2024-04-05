@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -28,13 +28,18 @@ export default function CheckOut() {
     navigation.navigate('orderConfirmationRider');
   };
 
+  const [popupVisible, setPopupVisible] = useState<boolean>(false);
+  function togglePopup() {
+    setPopupVisible(!popupVisible);
+  }
+
   return (
     <SafeAreaView style={styles.layout}>
       <View style={styles.payment}>
         <Text style={styles.paymentHeader}>Payment Method</Text>
       </View>
       <View style={styles.paymentTypes}>
-        <TouchableOpacity style={styles.paymentSelect}>
+        <TouchableOpacity onPress={togglePopup} style={styles.paymentSelect}>
           <View style={styles.paymentTypeContainer}>
             <Mpesa />
             <Text style={styles.paymentType1}>M-Pesa</Text>
@@ -42,7 +47,7 @@ export default function CheckOut() {
         </TouchableOpacity>
       </View>
       <View style={styles.paymentTypes}>
-        <TouchableOpacity style={styles.paymentSelect}>
+        <TouchableOpacity onPress={togglePopup} style={styles.paymentSelect}>
           <View style={styles.paymentTypeContainer}>
             <Paypal />
             <Text style={styles.paymentType1}>PayPal</Text>
@@ -50,7 +55,7 @@ export default function CheckOut() {
         </TouchableOpacity>
       </View>
       <View style={styles.paymentTypes}>
-        <TouchableOpacity style={styles.paymentSelect}>
+        <TouchableOpacity onPress={togglePopup} style={styles.paymentSelect}>
           <View style={styles.paymentTypeContainer}>
             <CreditCart />
             <Text style={styles.paymentType1}>Credit Card</Text>
@@ -62,7 +67,7 @@ export default function CheckOut() {
       </View>
       <View style={styles.checkoutButton}>
         <TouchableOpacity style={styles.checkoutButton1} onPress={checkOut}>
-          <Text style={styles.checkoutText}>CheckOut</Text>
+          <Text style={styles.checkoutText}>Pay Now</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
