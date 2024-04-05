@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import Delete from '../../images/Remove.svg';
+import Delete from '../../images/Delete.svg';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigation} from '../../routes';
 import {usePharmacyContext} from '../../context/PharmacyContext';
