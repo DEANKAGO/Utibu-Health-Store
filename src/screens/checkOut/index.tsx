@@ -13,6 +13,10 @@ import {RootNavigation} from '../../routes';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CartProduct, usePharmacyContext} from '../../context/PharmacyContext';
+import Modal from 'react-native-modal';
+import {Button} from '../../components/Buttons/Button';
+import {TextInput} from 'react-native-gesture-handler';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default function CheckOut() {
   const navigation = useNavigation<RootNavigation>();
@@ -32,6 +36,9 @@ export default function CheckOut() {
   function togglePopup() {
     setPopupVisible(!popupVisible);
   }
+
+  const [location, setLocation] = useState('');
+  // setLocation(location);
 
   return (
     <SafeAreaView style={styles.layout}>
@@ -70,6 +77,21 @@ export default function CheckOut() {
           <Text style={styles.checkoutText}>Pay Now</Text>
         </TouchableOpacity>
       </View>
+      <Modal isVisible={popupVisible}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Address</Text>
+          <View style={styles.separator} />
+          <Text style={styles.text}>Enter your delivery address</Text>
+          <TextInput
+            style={styles.input}
+            value={location}
+            placeholder="Address"
+            onChangeText={setLocation}
+            keyboardType="numeric"
+          />
+          <Button title="Confirm" onPress={togglePopup} labelColor={'white'} />
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -125,5 +147,41 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 15,
     fontWeight: '500',
+  },
+  container: {
+    // flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingVertical: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '400',
+    textAlign: 'center',
+    color: 'black',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
+  },
+  input: {
+    height: 45,
+    width: 250,
+    padding: 10,
+    borderRadius: 15,
+    backgroundColor: '#F4F4F4',
+    marginBottom: 20,
+    marginTop: 35,
+  },
+  btn: {
+    color: 'green',
   },
 });
